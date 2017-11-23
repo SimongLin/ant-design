@@ -225,9 +225,11 @@ export default class Upload extends React.Component<UploadProps, any> {
     }
     const result = this.props.beforeUpload(file, fileList);
     if (result === false) {
+      let nextFileList = ('fileList' in this.props) ? this.props.fileList! :
+        this.state.fileList;
       this.onChange({
         file,
-        fileList,
+        fileList: nextFileList,
       });
       return false;
     } else if (result && (result as PromiseLike<any>).then) {
